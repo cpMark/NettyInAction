@@ -3,10 +3,10 @@ package com.mark.netty.actioin.order;
 import com.mark.netty.actioin.common.Operation;
 import com.mark.netty.actioin.common.OperationResult;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 @Data
-@Slf4j
+@Log
 public class OrderOperation extends Operation {
 
     private int tableId;

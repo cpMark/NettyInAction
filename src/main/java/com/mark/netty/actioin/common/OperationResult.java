@@ -1,4 +1,7 @@
 package com.mark.netty.actioin.common;
 
-public class OperationResult extends MessageBody{
+import lombok.Data;
+
+@Data
+public abstract class OperationResult extends MessageBody{
 }

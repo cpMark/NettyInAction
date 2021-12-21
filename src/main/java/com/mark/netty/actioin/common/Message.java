@@ -37,7 +37,7 @@ public abstract class Message<T extends MessageBody> {
         this.messageHeader = messageHeader;
 
         Class<T> bodyClazz = getMessageBodyDecodeClass(opCode);
-        T body = JsonUtil.fromJson(msg.toString(Charset.fromName("UTF-8")),bodyClazz);
+        T body = JsonUtil.fromJson(msg.toString(Charset.forName("UTF-8")),bodyClazz);
         this.messageBody = body;
     }
 

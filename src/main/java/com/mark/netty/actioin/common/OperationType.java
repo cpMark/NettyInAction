@@ -24,7 +24,12 @@ public enum OperationType {
         this.operationResultClazz = operationResultClazz;
     }
 
-    public static Class<Operation> fromOpCode(int opCode) {
+    public static OperationType fromOpCode(int opCode) {
+        for (OperationType value : values()) {
+            if(value.getOpCode() == opCode){
+                return value;
+            }
+        }
         return null;
     }
 

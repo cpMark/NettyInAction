@@ -2,8 +2,8 @@ package com.mark.netty.actioin.common;
 
 public class RequestMessage extends Message<Operation>{
     @Override
-    public Class<Operation> getMessageBodyDecodeClass(int opCode) {
-        return OperationType.fromOpCode(opCode);
+    public Class getMessageBodyDecodeClass(int opCode) {
+        return OperationType.fromOpCode(opCode).getOperationClazz();
     }
 
     public RequestMessage(){

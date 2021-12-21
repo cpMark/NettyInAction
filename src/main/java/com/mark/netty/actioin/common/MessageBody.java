@@ -1,4 +1,4 @@
 package com.mark.netty.actioin.common;
 
-public class MessageBody {
+public abstract class MessageBody {
 }

@@ -8,3 +8,7 @@
 /httpRequests/
 
 .idea
+
+target
+
+src/main/resources/git.properties
