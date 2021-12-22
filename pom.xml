@@ -15,10 +15,6 @@
 
     <version>0.0.1-SNAPSHOT</version>
 
-    <modules>
-
-    </modules>
-
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
