@@ -13,6 +13,7 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioChannelOption;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -25,6 +26,9 @@ public class OrderClientV2 {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.channel(NioSocketChannel.class);
         bootstrap.group(new NioEventLoopGroup());
+
+        // 设置连接超时时间为10s
+        bootstrap.option(NioChannelOption.CONNECT_TIMEOUT_MILLIS, 10 * 1000);
 
         PendingResultCenter pendingResultCenter = new PendingResultCenter();
 
@@ -45,12 +49,12 @@ public class OrderClientV2 {
             }
         });
 
-        ChannelFuture channelFuture = bootstrap.connect("127.0.0.1",8090).sync();
+        ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 8090).sync();
 
         long streamId = IdUtil.nextId();
         RequestMessage requestMessage = new RequestMessage(streamId, new OrderOperation(123, "tudou"));
         OperationResultFuture operationResultFuture = new OperationResultFuture();
-        pendingResultCenter.add(streamId,operationResultFuture);
+        pendingResultCenter.add(streamId, operationResultFuture);
 
         channelFuture.channel().writeAndFlush(requestMessage);
 
