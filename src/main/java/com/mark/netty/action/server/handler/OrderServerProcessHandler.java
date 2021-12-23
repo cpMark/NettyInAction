@@ -4,12 +4,15 @@ import com.mark.netty.action.common.Operation;
 import com.mark.netty.action.common.OperationResult;
 import com.mark.netty.action.common.RequestMessage;
 import com.mark.netty.action.common.ResponseMessage;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 public class OrderServerProcessHandler extends SimpleChannelInboundHandler<RequestMessage> {
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, RequestMessage requestMessage) throws Exception {
+        ByteBuf buffer = channelHandlerContext.alloc().buffer();
+
         Operation operation = requestMessage.getMessageBody();
         OperationResult operationResult = operation.execute();
 

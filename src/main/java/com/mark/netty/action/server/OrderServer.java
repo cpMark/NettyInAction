@@ -26,13 +26,13 @@ public class OrderServer {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.channel(NioServerSocketChannel.class);
 
-        NioEventLoopGroup boss = new NioEventLoopGroup(5, new DefaultThreadFactory("boss"));
-        NioEventLoopGroup worker = new NioEventLoopGroup(10, new DefaultThreadFactory("worker"));
+        NioEventLoopGroup boss = new NioEventLoopGroup(0, new DefaultThreadFactory("boss"));
+        NioEventLoopGroup worker = new NioEventLoopGroup(0, new DefaultThreadFactory("worker"));
         serverBootstrap.group(boss, worker);
 
         MetricHandler metricHandler = new MetricHandler();
 
-        serverBootstrap.handler(new LoggingHandler(LogLevel.INFO));
+        serverBootstrap.handler(new LoggingHandler(LogLevel.ERROR));
 
         // 作用于SocketChannel
         // 设置是否启用Nagle算法：将小的碎片数据连接成更大的报文，来提高发送效率，默认为false（需要发送一些较小报文时不需修改）
@@ -47,7 +47,7 @@ public class OrderServer {
             protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
                 ChannelPipeline pipeline = nioSocketChannel.pipeline();
 
-                pipeline.addLast(new LoggingHandler(LogLevel.DEBUG));
+                // pipeline.addLast(new LoggingHandler(LogLevel.ERROR));
 
                 pipeline.addLast("OrderFrameDecoder", new OrderFrameDecoder());
                 pipeline.addLast("OrderFrameEncoder", new OrderFrameEncoder());
@@ -58,7 +58,7 @@ public class OrderServer {
 
                 pipeline.addLast("OrderServerProcessHandler", new OrderServerProcessHandler());
 
-                pipeline.addLast(new LoggingHandler(LogLevel.INFO));
+                pipeline.addLast(new LoggingHandler(LogLevel.ERROR));
             }
         });
 

@@ -18,7 +18,7 @@ import io.netty.handler.logging.LoggingHandler;
 
 import java.util.concurrent.ExecutionException;
 
-public class OrderClient {
+public class OrderClientV0 {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         Bootstrap bootstrap = new Bootstrap();
@@ -41,7 +41,11 @@ public class OrderClient {
         ChannelFuture channelFuture = bootstrap.connect("127.0.0.1",8090).sync();
 
         RequestMessage tudou = new RequestMessage(IdUtil.nextId(), new OrderOperation(123, "tudou"));
-        channelFuture.channel().writeAndFlush(tudou);
+
+        for (int i = 0; i < 10000; i++) {
+            channelFuture.channel().writeAndFlush(tudou);
+        }
+
         channelFuture.channel().closeFuture().get();
     }
 }
