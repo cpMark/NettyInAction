@@ -42,7 +42,7 @@ public class OrderClientV0 {
 
         RequestMessage tudou = new RequestMessage(IdUtil.nextId(), new OrderOperation(123, "tudou"));
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 20; i++) {
             channelFuture.channel().writeAndFlush(tudou);
         }
 
